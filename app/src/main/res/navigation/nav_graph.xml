@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/search_navigation">
+
+    <navigation
+        android:id="@+id/search_navigation"
+        app:startDestination="@id/searchFragment">
+        <fragment
+            android:id="@+id/responseFragment"
+            android:name="com.example.moodbook.ResponseFragment"
+            android:label="ResponseFragment" >
+            <argument
+                android:name="data"
+                app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/searchFragment"
+            android:name="com.example.moodbook.SearchFragment"
+            android:label="SearchFragment">
+            <action
+                android:id="@+id/action_searchFragment_to_responseFragment"
+                app:destination="@id/responseFragment" />
+        </fragment>
+    </navigation>
+
+    <navigation android:id="@+id/saved_fragment"
+        app:startDestination="@id/savedFragment">
+        <fragment
+            android:id="@+id/savedFragment"
+            android:name="com.example.moodbook.SavedFragment"
+            android:label="SavedFragment" />
+    </navigation>
+
+</navigation>
