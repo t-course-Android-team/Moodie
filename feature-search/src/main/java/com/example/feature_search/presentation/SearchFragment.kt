@@ -1,4 +1,4 @@
-package com.example.moodbook
+package com.example.feature_search.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.moodbook.databinding.SearchFragmentBinding
+import com.example.feature_search.R
+import com.example.feature_search.databinding.SearchFragmentBinding
+import com.example.feature_response.presentation.ResponseFragment.Companion.DATA
 
 class SearchFragment : Fragment(R.layout.search_fragment) {
 
@@ -31,8 +33,10 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
 
     private fun initTestButton() {
         binding.button.setOnClickListener {
-            val action = SearchFragmentDirections.actionSearchFragmentToResponseFragment(data)
-            findNavController().navigate(action)
+            val bundle = Bundle().apply {
+                putString(DATA, data)
+            }
+            findNavController().navigate(R.id.action_searchFragment_to_nav_graph_response, bundle)
         }
     }
 
