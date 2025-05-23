@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "moodBook"
 include(":app")
- 
+include(":app:search_feature")
