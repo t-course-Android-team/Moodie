@@ -10,13 +10,13 @@ import retrofit2.Response
 
 
 suspend fun main() {
-    val apiKey = BuildConfig.OPENROUTER_API_KEY
-    val api = RetrofitHelper.createOpenRouterAPI(apiKey)
+    val api = RetrofitHelper.createOpenRouterAPI()
     val repository = RemoteRepositoryImpl(api)
+
     val request = ChatRequest(
         model = "deepseek/deepseek-chat-v3-0324:free",
         messages = listOf(
-            Message(role = "user", content = "Which movie should I watch if I'm sad and I love fantasy")
+            Message(role = "user", content = "What movie I should watch if i love fantasy? Tell me only names of these films")
         )
     )
     val response : Response<ChatResponse> = repository.getChatResponse(request)

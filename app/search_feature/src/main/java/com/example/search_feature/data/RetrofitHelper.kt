@@ -1,5 +1,6 @@
 package com.example.search_feature.data
 
+import com.example.search_feature.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -7,7 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
-
+const val apiKey = BuildConfig.OPENROUTER_API_KEY
 internal object RetrofitHelper {
    private  fun createConverterFactory(): Converter.Factory {
         val contentType = "application/json".toMediaType()
@@ -19,13 +20,13 @@ internal object RetrofitHelper {
         return json.asConverterFactory(contentType)
     }
 
-    fun createOpenRouterAPI(apiKey: String): OpenRouterAPI {
+    fun createOpenRouterAPI(): OpenRouterAPI {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
 
         val okHttpClient = OkHttpClient.Builder()
-            //  .addInterceptor(loggingInterceptor)
+              .addInterceptor(loggingInterceptor)
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", "Bearer $apiKey")

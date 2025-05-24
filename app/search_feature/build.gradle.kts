@@ -13,7 +13,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "OPENROUTER_API_KEY", "\"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\"")
+        buildConfigField("String", "OPENROUTER_API_KEY", "\"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\"")
     }
 
     buildTypes {
