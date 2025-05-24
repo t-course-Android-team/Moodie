@@ -21,4 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "moodBook"
 include(":app")
- 
+include(":feature-saved")
+include(":feature-search")
+include(":feature-response")
