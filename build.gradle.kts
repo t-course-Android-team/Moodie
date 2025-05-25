@@ -2,8 +2,10 @@
 buildscript {
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
+        classpath(libs.kotlin.serialization)
         classpath(libs.androidx.navigation.safe.args.gradle.plugin)
     }
 }

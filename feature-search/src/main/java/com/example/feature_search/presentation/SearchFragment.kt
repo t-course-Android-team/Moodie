@@ -14,7 +14,7 @@ class SearchFragment : Fragment(R.layout.search_fragment) {
 
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
-    private var data: String = "transmitted data"
+    private var data: String = "Alien Romulus*Interstellar*The Dark Knight*El Camino*minions*Spider-Man*Minecraft*Nobody*five nights at freddy*Central Intelligence"
     // data которая передаётся в фрагмент Response (пока что просто string)
 
     override fun onCreateView(

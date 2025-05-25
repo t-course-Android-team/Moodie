@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">moodBook</string>
+    <string name="genres"><b>Жанры:</b> Фильм ужасов, Научная фантастика, Боевик, Триллер</string>
+    <string name="description"><b>Описание:</b> Чужой рубит всех подряд</string>
+    <string name="already_seen">Already seen</string>
+    <string name="like_it">Watch later</string>
+    <string name="minutes">minutes</string>
+    <string name="yr_duration">  | </string>
+    <string name="loading_films_progress">Loading films… (%1$d/10)</string>
+    <string name="back_to_search">Back to search</string>
 </resources>
