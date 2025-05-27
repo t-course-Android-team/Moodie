@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+   >
 
     <TextView
         android:id="@+id/textView"
@@ -11,18 +12,81 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:textSize="50sp"
-        android:textColor="@color/design_default_color_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toTopOf="@+id/search_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="30dp"
+        android:orientation="horizontal"
+         android:layout_height="match_parent"
+        android:layout_width="match_parent">
+        <EditText
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/genre_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:hint="Genre"
+            android:layout_margin="30sp"
+            android:textSize="30sp"
+            />
+        <EditText
+            android:id="@+id/mood_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/genre_text"
+            android:hint="Mood"
+            android:layout_margin="30sp"
+            android:textSize="30sp"
+            android:inputType="textPersonName"
+            />
+        <EditText
+            android:id="@+id/release_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/mood_text"
+            android:hint="Release"
+            android:textSize="30sp"
+            android:layout_margin="30sp"
+            android:inputType="textPersonName"
+/>
+        <EditText
+            android:id="@+id/country_text"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/release_text"
+            android:hint="Country"
+            android:textSize="30sp"
+            android:layout_margin="30sp"
+            android:inputType="textPersonName"
+            />
+        <EditText
+            android:id="@+id/reference_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/country_text"
+            android:hint="Reference"
+            android:textSize="30sp"
+            android:layout_margin="30sp"
+            android:inputType="textPersonName"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/search_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Test"
+        android:text="Search"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
