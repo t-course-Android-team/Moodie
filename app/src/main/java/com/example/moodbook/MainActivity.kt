@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
                 is SearchFragment -> {
                     finish()
                 }
-                else -> navController.popBackStack()
             }
         }
     }

@@ -23,7 +23,9 @@ class SearchFragment : Fragment() {
 
     private var _binding: SearchFragmentBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var data: String
+
     // data которая передаётся в фрагмент Response (пока что просто string)
 
     private val featureSearchViewModel: FeatureSearchViewModel by activityViewModels {
