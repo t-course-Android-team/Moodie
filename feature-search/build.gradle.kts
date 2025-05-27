@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
-    id ("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -16,7 +17,11 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "OPENROUTER_API_KEY", "\"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\"")
+        buildConfigField(
+            "String",
+            "OPENROUTER_API_KEY",
+            "\"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\""
+        )
     }
 
     buildTypes {
@@ -40,6 +45,9 @@ android {
         android.buildFeatures.buildConfig = true
     }
 }
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
+}
 
 dependencies {
 
@@ -57,6 +65,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(project(":core"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -70,4 +79,10 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
+    implementation("com.google.dagger:dagger:2.48")
+    ksp("com.google.dagger:dagger-compiler:2.48")
+    implementation ("com.google.dagger:dagger-android-support:2.48")
 }
