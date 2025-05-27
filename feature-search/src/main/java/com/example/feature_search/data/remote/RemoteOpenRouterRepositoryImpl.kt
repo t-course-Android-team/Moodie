@@ -1,14 +1,12 @@
-package com.example.feature_search.data
+package com.example.feature_search.data.remote
 
 
-
-import com.example.feature_search.domain.RemoteRepository
+import com.example.feature_search.domain.RemoteOpenRouterRepository
 import retrofit2.Response
 
-class RemoteRepositoryImpl (
+class RemoteOpenRouterRepositoryImpl(
     private val api: OpenRouterAPI
-): RemoteRepository
-{
+) : RemoteOpenRouterRepository {
     override suspend fun getChatResponse(request: ChatRequest): Response<ChatResponse> {
         return api.searchMove(
             request = request

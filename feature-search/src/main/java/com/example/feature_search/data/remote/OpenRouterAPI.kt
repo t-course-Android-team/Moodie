@@ -1,4 +1,4 @@
-package com.example.feature_search.data
+package com.example.feature_search.data.remote
 
 
 
