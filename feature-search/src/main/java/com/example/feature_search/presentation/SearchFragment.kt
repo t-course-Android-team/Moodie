@@ -2,6 +2,7 @@ package com.example.feature_search.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.data.WatchedMoviesDao
+import com.example.data.WatchedMoviesDataBase
+import com.example.data.WatchedMoviesRepoImpl
 import com.example.feature_search.R
 import com.example.feature_search.databinding.SearchFragmentBinding
 import com.example.feature_response.presentation.ResponseFragment.Companion.DATA
 import com.example.feature_search.domain.RemoteOpenRouterRepository
 import com.example.feature_search.domain.RepositoryFactory
 import com.example.feature_search.domain.SearchMovieUseCase
-import com.example.feature_search.domain.WatchedMoviesRepository
+import com.example.utils.InternetChecker.isInternetAvailable
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class SearchFragment : Fragment() {
@@ -29,7 +34,14 @@ class SearchFragment : Fragment() {
     // data которая передаётся в фрагмент Response (пока что просто string)
 
     private val featureSearchViewModel: FeatureSearchViewModel by activityViewModels {
-        FeatureSearchViewModelFactory(searchMovieUseCase = SearchMovieUseCase(RepositoryFactory.createOpenRouterRepository()))
+        FeatureSearchViewModelFactory(
+            searchMovieUseCase = SearchMovieUseCase(
+                RepositoryFactory.createOpenRouterRepository(), repository = WatchedMoviesRepoImpl(
+                    WatchedMoviesDataBase.WatchedMoviesDataBase.getWatchedDataBase(requireContext())
+                        .watchedMoviesDao()
+                )
+            )
+        )
     }
 
 
@@ -50,6 +62,8 @@ class SearchFragment : Fragment() {
     private fun initTestButton() {
         with(binding) {
             searchButton.setOnClickListener {
+                searchButton.isEnabled = false
+
                 val prompt = RequestUIModel(
                     genre = genreText.text.toString(),
                     released = releaseText.text.toString(),
@@ -59,16 +73,22 @@ class SearchFragment : Fragment() {
                 )
 
                 lifecycleScope.launch {
-
-                    featureSearchViewModel.searchMovies(prompt)
-
-
+                    try {
+                        if (isInternetAvailable(requireContext())) {
+                            featureSearchViewModel.searchMovies(prompt)
+                        } else {
+                            showInternetError()
+                        }
+                    } catch (e: Exception) {
+                        Log.e("SEARCH", "Error", e)
+                        showInternetError()
+                    } finally {
+                        searchButton.isEnabled = true
+                    }
                 }
             }
-
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -101,6 +121,8 @@ class SearchFragment : Fragment() {
 
         featureSearchViewModel.watchedMovies.observe(viewLifecycleOwner) { movies ->
             movies?.let { data ->
+                if (isInternetAvailable(requireContext())) {
+
                 val bundle = Bundle().apply {
                     putString(DATA, data)
                 }
@@ -108,9 +130,18 @@ class SearchFragment : Fragment() {
                     R.id.action_searchFragment_to_nav_graph_response, bundle
                 )
 
-
+            }
             }
         }
     }
 
+    private fun showInternetError() {
+        Snackbar.make(
+            binding.root,
+            "Нет интернет-соединения",
+            Snackbar.LENGTH_LONG
+        ).setAction("Повторить") {
+            initTestButton()
+        }.show()
+    }
 }
