@@ -33,3 +33,8 @@ data class ModelData(
     val name: String,
     val description: String?,
 )
+@Serializable
+data class ServiceRequest(
+    @SerialName("name")  val name: String,
+    @SerialName("label") val label: String
+)

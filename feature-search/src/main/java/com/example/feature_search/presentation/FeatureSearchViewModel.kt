@@ -1,6 +1,6 @@
 package com.example.feature_search.presentation
 
-import android.R
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,7 +10,6 @@ import com.example.feature_search.presentation.UIMappers.toModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Dispatcher
 
 class FeatureSearchViewModel(
     private val searchMovieUseCase: SearchMovieUseCase
@@ -18,11 +17,17 @@ class FeatureSearchViewModel(
     private val _watchedMovies = MutableLiveData<String?>()
     val watchedMovies: LiveData<String?> = _watchedMovies
 
-   suspend fun searchMovies(prompt: RequestUIModel)  = withContext(Dispatchers.IO){
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading : LiveData<Boolean> = _isLoading
+
+    suspend fun searchMovies(prompt: RequestUIModel) = withContext(Dispatchers.IO) {
         viewModelScope.launch {
-         val result =   searchMovieUseCase.invoke(prompt.toModel())
-        _watchedMovies.value= result
+            _isLoading.postValue(true)
+            val result = searchMovieUseCase.invoke(prompt.toModel())
+            Log.d("FROM AI", result)
+            _watchedMovies.value = result
         }
+        _isLoading.postValue(false)
     }
 
 

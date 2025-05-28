@@ -18,7 +18,8 @@ class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , /*private
                     append("Here is a list of movies that I have already watched. They don't need to be offered ")
                     //                    repository.getWatchedMovies()?.map { movie -> movie.name }
                     append("in the answer, give only the names of the films and nothing else")
-                    append("Format response EXACTLY like this: '1. Movie 1|2. Movie 2|...|10. Movie 10'")
+                    append("Format response EXACTLY like this: 'Movie 1*Movie 2*...*Movie 10'")
+                    append("THE ANSWER SHOULD BE NOTHING BUT MOVIES.")
                 }
 
                 val response = api.getChatResponse(
@@ -41,13 +42,13 @@ class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , /*private
     }
     private fun formatMoviesResponse(rawResponse: String): String {
         return rawResponse
-            .replace("*", "")
-            .split('|')
-            .mapNotNull { line ->
-                val regex = """^\s*\d+[.)]\s*(.+?)\s*$""".toRegex()
-                regex.find(line.trim())?.groupValues?.get(1)
-            }
-            .mapIndexed { index, title -> "${index + 1}. $title" }
-            .joinToString("\t")
+//            .replace(" ", "*")
+//            .split('|')
+//            .mapNotNull { line ->
+//                val regex = """^\s*\d+[.)]\s*(.+?)\s*$""".toRegex()
+//                regex.find(line.trim())?.groupValues?.get(1)
+//            }
+//            .mapIndexed { index, title -> "${index + 1}. $title" }
+//            .joinToString("*")
     }
 }
