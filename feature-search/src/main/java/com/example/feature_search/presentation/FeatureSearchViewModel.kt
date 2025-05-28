@@ -20,14 +20,20 @@ class FeatureSearchViewModel(
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading : LiveData<Boolean> = _isLoading
 
-    suspend fun searchMovies(prompt: RequestUIModel) = withContext(Dispatchers.IO) {
-        viewModelScope.launch {
-            _isLoading.postValue(true)
-            val result = searchMovieUseCase.invoke(prompt.toModel())
+    suspend fun searchMovies(prompt: RequestUIModel) {
+        _isLoading.postValue(true)
+        try {
+            val result = withContext(Dispatchers.IO) {
+                searchMovieUseCase.invoke(prompt.toModel())
+            }
             Log.d("FROM AI", result)
-            _watchedMovies.value = result
+            _watchedMovies.postValue(result)
+        } catch (e: Exception) {
+            Log.e("SEARCH_ERROR", "Error in search", e)
+            _watchedMovies.postValue(null)
+        } finally {
+            _isLoading.postValue(false)
         }
-        _isLoading.postValue(false)
     }
 
 

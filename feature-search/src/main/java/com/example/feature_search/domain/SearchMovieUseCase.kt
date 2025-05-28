@@ -1,9 +1,10 @@
 package com.example.feature_search.domain
 
+import com.example.domain.WatchedMoviesRepo
 import com.example.feature_search.data.remote.ChatRequest
 import com.example.feature_search.data.remote.Message
 
-class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , /*private val repository: WatchedMoviesRepository*/) {
+class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , private val repository: WatchedMoviesRepo) {
 
     suspend operator fun invoke(movie :MovieForSearch) : String{
         return try{
@@ -16,7 +17,7 @@ class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , /*private
                     if (country != null) append("from these country $country ")
                     if (reference != null) append("similar to $reference ")
                     append("Here is a list of movies that I have already watched. They don't need to be offered ")
-                    //                    repository.getWatchedMovies()?.map { movie -> movie.name }
+                    append(repository.getPagedWatchedMovies(0, 50).map { movie -> movie.name })
                     append("in the answer, give only the names of the films and nothing else")
                     append("Format response EXACTLY like this: 'Movie 1*Movie 2*...*Movie 10'")
                     append("THE ANSWER SHOULD BE NOTHING BUT MOVIES.")
