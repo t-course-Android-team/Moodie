@@ -4,8 +4,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("androidx.navigation.safeargs.kotlin")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.0"
     id("com.google.devtools.ksp")
+    id("kotlinx-serialization")
 }
 
 android {
@@ -20,7 +20,12 @@ android {
         buildConfigField(
             "String",
             "OPENROUTER_API_KEY",
-            "\"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\""
+            "\"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\""
+        )
+        buildConfigField(
+            "String",
+            "ADMIN_OPENROUTER_API_KEY",
+            "\"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\""
         )
     }
 
@@ -85,4 +90,5 @@ dependencies {
     implementation("com.google.dagger:dagger:2.48")
     ksp("com.google.dagger:dagger-compiler:2.48")
     implementation ("com.google.dagger:dagger-android-support:2.48")
+    implementation ("com.airbnb.android:lottie:6.6.6")
 }

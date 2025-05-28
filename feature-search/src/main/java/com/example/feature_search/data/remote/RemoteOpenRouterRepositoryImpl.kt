@@ -17,4 +17,8 @@ class RemoteOpenRouterRepositoryImpl(
         return api.getModels().data
     }
 
+//    override suspend fun updateApiKey(): String {
+//        api.updateServiceKey()
+//    }
+
 }

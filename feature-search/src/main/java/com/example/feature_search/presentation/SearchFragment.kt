@@ -76,6 +76,29 @@ class SearchFragment : Fragment() {
     }
 
     private fun initObserve() {
+        featureSearchViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            with(binding) {
+                when (isLoading) {
+
+                    true -> {
+                        loadingContainer.visibility = View.VISIBLE
+                        loadingAnimation.playAnimation()
+                        questions.visibility = View.GONE
+                        searchButton.visibility = View.GONE
+
+
+                    }
+
+                    false -> {
+                        loadingContainer.visibility = View.GONE
+                        loadingAnimation.cancelAnimation()
+                        questions.visibility = View.VISIBLE
+                        searchButton.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
         featureSearchViewModel.watchedMovies.observe(viewLifecycleOwner) { movies ->
             movies?.let { data ->
                 val bundle = Bundle().apply {
