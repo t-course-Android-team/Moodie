@@ -20,7 +20,7 @@ android {
         buildConfigField(
             "String",
             "OPENROUTER_API_KEY",
-            "\"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\""
+            "\"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\""
         )
         buildConfigField(
             "String",
