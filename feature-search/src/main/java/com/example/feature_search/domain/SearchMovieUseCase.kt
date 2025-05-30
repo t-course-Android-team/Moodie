@@ -20,7 +20,7 @@ class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , private v
                     append(repository.getPagedWatchedMovies(0, 50).map { movie -> movie.name })
                     append("in the answer, give only the names of the films and nothing else")
                     append("Format response EXACTLY like this: 'Movie 1*Movie 2*...*Movie 10'")
-                    append("THE ANSWER SHOULD BE NOTHING BUT MOVIES.")
+                    append("THE ANSWER SHOULD BE NOTHING BUT TEN MOVIES.")
                 }
 
                 val response = api.getChatResponse(
