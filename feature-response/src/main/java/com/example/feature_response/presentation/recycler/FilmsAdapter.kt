@@ -5,11 +5,26 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.feature_response.R
+import com.example.feature_response.databinding.FilmBinding
 import com.example.feature_response.domain.FilmEntity
 
 class FilmsAdapter : RecyclerView.Adapter<ViewHolder>() {
 
+    lateinit var actionSave: ((List<FilmEntity>, Int) -> Unit)
+    lateinit var actionSeen: ((List<FilmEntity>, Int) -> Unit)
+
+    private var isButtonSeenEnabled: Boolean = true
+    private var isButtonSavedEnabled: Boolean = true
+
     private val data = mutableListOf<FilmEntity>()
+
+    fun updateButtonsConditions(isSeenEnabled: Boolean, isSavedEnabled: Boolean) {
+        isButtonSavedEnabled = isSavedEnabled
+        isButtonSeenEnabled = isSeenEnabled
+    }
+
+    fun getButtonSaveCondition(): Boolean = isButtonSavedEnabled
+    fun getButtonSeenCondition(): Boolean = isButtonSeenEnabled
 
     fun setNewData(newData: List<FilmEntity>) {
         data.clear()
@@ -17,13 +32,27 @@ class FilmsAdapter : RecyclerView.Adapter<ViewHolder>() {
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.film, viewGroup, false)
-        return ViewHolder(view)
+        val binding = FilmBinding.inflate(LayoutInflater.from(viewGroup.context))
+        return ViewHolder(binding).apply {
+            save.setOnClickListener {
+                actionSave(data, adapterPosition)
+                seen.isEnabled = true
+                save.isEnabled = false
+                isButtonSeenEnabled = true
+                isButtonSavedEnabled = false
+            }
+            seen.setOnClickListener {
+                actionSeen(data, adapterPosition)
+                seen.isEnabled = false
+                save.isEnabled = true
+                isButtonSeenEnabled = false
+                isButtonSavedEnabled = true
+            }
+        }
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) = with(viewHolder) {
-        dataWasSet = true
+        name.isSelected = true
         name.text = data[position].name
         duration.text = data[position].duration
         release.text = data[position].yearRelease.toString()
@@ -36,7 +65,8 @@ class FilmsAdapter : RecyclerView.Adapter<ViewHolder>() {
         updatePoster(data[position].posterUrl)
         cardView.elevation = 6.0f
         if (position == 0) {
-            name.isSelected = true
+            save.isEnabled = isButtonSavedEnabled
+            seen.isEnabled = isButtonSeenEnabled
             itemView.isClickable = true
             itemView.isFocusable = true
         } else {

@@ -39,6 +39,10 @@ android {
 
 dependencies {
 
+    implementation(project(":core"))
+
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.logging.interceptor)
     implementation(libs.okhttp)
     implementation(libs.kotlinx.serialization.json)

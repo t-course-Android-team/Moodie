@@ -18,9 +18,12 @@ nav = "2.9.0"
 appcompat = "1.7.0"
 okhttp = "4.12.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
+roomRuntime = "2.7.1"
 
 [libraries]
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 github-glide = { module = "com.github.bumptech.glide:glide", version.ref = "githubGlide" }
 kotlin-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "kotlinSerialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }

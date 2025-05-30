@@ -43,6 +43,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core"))
     implementation(project(":feature-search"))
     implementation(project(":feature-response"))
     implementation(project(":feature-saved"))
@@ -59,7 +60,6 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
-    implementation(project(":core"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
