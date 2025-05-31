@@ -82,7 +82,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-//        sharedViewModel.getFilms(arguments?.getString(DATA))
+        // sharedViewModel.getFilms(arguments?.getString(DATA))
         sharedViewModel.getFilms("the lego batman movie*How to train your dragon*spider man no way home*Alien vs. Predator*Sonic the Hedgehog*truman show*Charlie and the Chocolate Factory*Batman v Superman: Dawn of Justice*The Terminator*Transformers")
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {

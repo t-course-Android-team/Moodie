@@ -44,7 +44,7 @@ internal class ResponseViewModel(
             viewModelScope.launch {
                 flow {
                     emit(State.LOADING)
-                    if (query == null) {
+                    if (query == null || query == "null") {
                         emit(State.ERROR)
                     } else {
                         queryToTitlesList(query).forEach {
