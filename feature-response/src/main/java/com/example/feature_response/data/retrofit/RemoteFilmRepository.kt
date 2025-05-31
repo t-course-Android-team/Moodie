@@ -1,7 +1,7 @@
-package com.example.feature_response.domain
+package com.example.feature_response.data.retrofit
 
-import com.example.feature_response.data.retrofit.FilmResponseMapper
-import com.example.feature_response.data.retrofit.FilmsApi
+import com.example.feature_response.domain.FilmEntity
+import com.example.feature_response.domain.FilmRepository
 
 internal class RemoteFilmRepository(
     private val api: FilmsApi

@@ -34,4 +34,13 @@ class WatchedMoviesRepoImpl(
             limit = limit
         )
     }
+
+    override suspend fun isMovieSaved(movieName: String): Boolean {
+        return moviesDao.isMovieSaved(movieName)
+    }
+
+    override suspend fun updateMovieIsSaved(movieName: String, newIsSaved: Boolean) {
+        moviesDao.updateMovieIsSaved(movieName, newIsSaved)
+    }
+
 }

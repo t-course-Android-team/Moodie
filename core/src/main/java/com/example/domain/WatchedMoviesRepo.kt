@@ -17,4 +17,8 @@ interface WatchedMoviesRepo {
         offset: Int,
         limit: Int
     ): List<WatchedMoviesEntity>
+
+    suspend fun isMovieSaved(movieName: String): Boolean
+
+    suspend fun updateMovieIsSaved(movieName: String, newIsSaved: Boolean): Unit
 }

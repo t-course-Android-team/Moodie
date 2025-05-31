@@ -25,7 +25,7 @@ interface WatchedMoviesDao {
     """)
     suspend fun isMovieWatched(movieName: String): Boolean
 
-    @Query("""DELETE FROM watched_movies_db WHERE rowid  IN  
+    @Query("""DELETE FROM watched_movies_db WHERE rowid IN  
             (SELECT rowid FROM watched_movies_db ORDER BY rowid ASC  LIMIT :count)""")
     suspend fun removeOldest(count: Int)
 
@@ -33,4 +33,10 @@ interface WatchedMoviesDao {
     suspend fun getWatchedMoviesByLimit(
          offset: Int, limit: Int
     ): List<WatchedMoviesEntity>
+
+    @Query("SELECT isSaved FROM watched_movies_db WHERE name = :movieName LIMIT 1")
+    suspend fun isMovieSaved(movieName: String): Boolean
+
+    @Query("UPDATE watched_movies_db SET isSaved = :newIsSaved WHERE name = :movieName")
+    suspend fun updateMovieIsSaved(movieName: String, newIsSaved: Boolean)
 }

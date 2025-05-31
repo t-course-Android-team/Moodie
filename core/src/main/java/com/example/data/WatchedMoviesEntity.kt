@@ -12,5 +12,6 @@ data class WatchedMoviesEntity (
     val yearRelease: Int,
     val rate: Float,
     val posterUrl: String,
-    val plot: String
+    val plot: String,
+    val isSaved: Boolean // если false значит он просмотренный, если true значит он добавлен в сохранённые
 )
