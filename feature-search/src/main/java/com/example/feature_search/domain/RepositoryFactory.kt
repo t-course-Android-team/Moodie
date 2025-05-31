@@ -6,9 +6,9 @@ import com.example.feature_search.data.remote.RemoteOpenRouterRepositoryImpl
 import com.example.feature_search.data.remote.RetrofitHelper
 
 object RepositoryFactory {
-    fun createOpenRouterRepository(): RemoteOpenRouterRepository {
+    fun createOpenRouterRepository(key: String): RemoteOpenRouterRepository {
         return RemoteOpenRouterRepositoryImpl(
-            RetrofitHelper.createOpenRouterAPI(BuildConfig.OPENROUTER_API_KEY)
+            RetrofitHelper.createUserAPI(key), RetrofitHelper.createAdminAPI()
         )
     }
 
