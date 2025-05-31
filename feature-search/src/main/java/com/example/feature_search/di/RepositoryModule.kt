@@ -30,16 +30,4 @@ object RepositoryModule {
         return RepositoryFactory.createOpenRouterRepository(apiKey)
     }
 
-    @Provides
-    @Singleton
-    fun provideWatchedMoviesRepo(dao: WatchedMoviesDao): WatchedMoviesRepo {
-        return WatchedMoviesRepoImpl(dao)
-    }
-
-    @Provides
-    @Singleton
-    fun provideWatchedMoviesDao(@ApplicationContext context: Context): WatchedMoviesDao {
-        return WatchedMoviesDataBase.WatchedMoviesDataBase.getWatchedDataBase(context)
-            .watchedMoviesDao()
-    }
 }

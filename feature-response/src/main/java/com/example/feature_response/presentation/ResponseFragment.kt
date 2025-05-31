@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -21,17 +22,12 @@ import com.example.feature_response.presentation.recycler.FilmsAdapter
 import com.example.feature_response.presentation.recycler.OverlayLayoutManager
 import com.example.feature_response.presentation.recycler.SwipeToDeleteCallback
 import com.example.presentation.MainApplication
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class ResponseFragment : Fragment(R.layout.response_fragment) {
 
-    private val sharedViewModel: ResponseViewModel by activityViewModels {
-        ViewModelFactory(
-            RemoteFilmRepository(RetrofitHelper.createRetrofit()),
-            WatchedMoviesRepoImpl((requireActivity().application as? MainApplication)?.database?.watchedMoviesDao()
-                ?: throw IllegalStateException("Application is MainApplication: ${requireActivity().application is MainApplication}"))
-        )
-    }
+    private val sharedViewModel: ResponseViewModel by viewModels()
 
     private val customAdapter = FilmsAdapter()
 
