@@ -10,7 +10,9 @@ import com.example.feature_saved.presentation.SavedFragment
 import com.example.feature_search.presentation.SearchFragment
 import com.example.moodbook.databinding.ActivityBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBinding
