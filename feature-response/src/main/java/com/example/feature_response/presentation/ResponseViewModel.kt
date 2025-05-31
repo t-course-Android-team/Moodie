@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.WatchedMoviesRepoImpl
+import com.example.domain.WatchedMoviesRepo
 import com.example.feature_response.data.database.WatchedMoviesMapper
 import com.example.feature_response.domain.FilmEntity
 import com.example.feature_response.domain.FilmRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -17,10 +19,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-internal class ResponseViewModel(
+@HiltViewModel
+internal class ResponseViewModel @Inject constructor(
     private val repository: FilmRepository,
-    private val localRepository: WatchedMoviesRepoImpl
+    private val localRepository: WatchedMoviesRepo
 )  : ViewModel() {
 
     private val _films = MutableLiveData<List<FilmEntity>>()

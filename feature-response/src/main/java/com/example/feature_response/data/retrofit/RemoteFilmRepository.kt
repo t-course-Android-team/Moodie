@@ -2,8 +2,9 @@ package com.example.feature_response.data.retrofit
 
 import com.example.feature_response.domain.FilmEntity
 import com.example.feature_response.domain.FilmRepository
+import javax.inject.Inject
 
-internal class RemoteFilmRepository(
+internal class RemoteFilmRepository @Inject constructor(
     private val api: FilmsApi
 ) : FilmRepository {
 

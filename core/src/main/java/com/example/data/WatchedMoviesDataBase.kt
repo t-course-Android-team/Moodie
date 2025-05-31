@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-class WatchedMoviesDataBase {
+
     @Database(
         entities = [WatchedMoviesEntity::class],
         version = 1,
@@ -22,4 +22,3 @@ class WatchedMoviesDataBase {
             }
         }
     }
-}

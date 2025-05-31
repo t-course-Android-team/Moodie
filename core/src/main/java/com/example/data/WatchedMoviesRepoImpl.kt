@@ -1,8 +1,9 @@
 package com.example.data
 
 import com.example.domain.WatchedMoviesRepo
+import javax.inject.Inject
 
-class WatchedMoviesRepoImpl(
+class WatchedMoviesRepoImpl @Inject constructor(
     private val moviesDao: WatchedMoviesDao
 ) : WatchedMoviesRepo {
     override suspend fun insertWatchedMovie(movie: WatchedMoviesEntity) {

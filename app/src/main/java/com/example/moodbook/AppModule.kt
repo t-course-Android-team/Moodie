@@ -1,6 +1,8 @@
 package com.example.moodbook
 
 import android.content.Context
+import com.example.data.WatchedMoviesDao
+import com.example.data.WatchedMoviesDataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
