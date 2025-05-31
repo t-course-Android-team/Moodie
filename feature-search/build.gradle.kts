@@ -6,6 +6,7 @@ plugins {
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.devtools.ksp")
     id("kotlinx-serialization")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -78,7 +79,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
@@ -86,9 +87,10 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("androidx.room:room-runtime:2.7.1")
     implementation("androidx.room:room-ktx:2.7.1")
-    ksp("androidx.room:room-compiler:2.7.1")
-    implementation("com.google.dagger:dagger:2.48")
-    ksp("com.google.dagger:dagger-compiler:2.48")
-    implementation ("com.google.dagger:dagger-android-support:2.48")
+    ksp(libs.androidx.room.compiler)
     implementation ("com.airbnb.android:lottie:6.6.6")
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp(libs.hilt.android.compiler)
+
+
 }

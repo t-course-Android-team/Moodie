@@ -5,20 +5,20 @@ import com.example.feature_search.domain.RemoteOpenRouterRepository
 import retrofit2.Response
 
 class RemoteOpenRouterRepositoryImpl(
-    private val api: OpenRouterAPI
+    private val userApi: OpenRouterUserAPI, private val adminAPI: OpenRouterAdminAPI
 ) : RemoteOpenRouterRepository {
     override suspend fun getChatResponse(request: ChatRequest): Response<ChatResponse> {
-        return api.searchMove(
+        return userApi.searchMove(
             request = request
         )
     }
 
     override suspend fun getAvailableModels(): List<ModelData> {
-        return api.getModels().data
+        return userApi.getModels().data
     }
 
-//    override suspend fun updateApiKey(): String {
-//        api.updateServiceKey()
-//    }
+    override suspend fun createApiKey(request: CreateKeyRequest): Response<ApiKeyResponse> {
+        return adminAPI.createApiKey(request)
+    }
 
 }

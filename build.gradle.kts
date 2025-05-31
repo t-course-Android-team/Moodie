@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath(libs.kotlin.serialization)
         classpath(libs.androidx.navigation.safe.args.gradle.plugin)
+//        classpath (libs.hilt.android.gradle.plugin)
     }
 }
 
@@ -16,4 +17,5 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.android.library) apply false
     id("com.google.devtools.ksp") version "2.0.20-1.0.25" apply false
+    id("com.google.dagger.hilt.android") version "2.56.2" apply false
 }

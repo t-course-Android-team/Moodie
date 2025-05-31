@@ -3,10 +3,13 @@ package com.example.feature_search.domain
 import com.example.domain.WatchedMoviesRepo
 import com.example.feature_search.data.remote.ChatRequest
 import com.example.feature_search.data.remote.Message
+import com.example.feature_search.presentation.RequestUIModel
+import javax.inject.Inject
 
-class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , private val repository: WatchedMoviesRepo) {
+class SearchMovieUseCase  @Inject constructor
+    ( private val apiKeyProvider: ApiKeyProvider , private val repository: WatchedMoviesRepo) {
 
-    suspend operator fun invoke(movie :MovieForSearch) : String{
+    suspend operator fun invoke(movie: RequestUIModel) : String{
         return try{
             with(movie) {
                 val prompt = buildString {
@@ -23,14 +26,15 @@ class SearchMovieUseCase(private val api: RemoteOpenRouterRepository , private v
                     append("THE ANSWER SHOULD BE NOTHING BUT TEN MOVIES.")
                 }
 
-                val response = api.getChatResponse(
-                    ChatRequest(
-                        model ="deepseek/deepseek-chat-v3-0324:free",
-                        messages = listOf(
-                            Message(role= "user", content = prompt )
+                val response = apiKeyProvider.withTempApiKey { tempApiKey ->
+                    val tempRepository = RepositoryFactory.createOpenRouterRepository(tempApiKey)
+                    tempRepository.getChatResponse(
+                        ChatRequest(
+                            model = "deepseek/deepseek-chat-v3-0324:free",
+                            messages = listOf(Message(role = "user", content = prompt))
                         )
                     )
-                )
+                }
                 val movies = (response.body()?.choices?.firstOrNull()?.message?.content.toString())
                 return formatMoviesResponse(movies)
             }
