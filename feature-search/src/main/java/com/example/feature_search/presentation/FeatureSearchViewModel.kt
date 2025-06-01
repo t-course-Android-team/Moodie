@@ -30,7 +30,7 @@ class FeatureSearchViewModel @Inject constructor(
             _isLoading.value = true
             val result = searchMovieUseCase(prompt)
             _resultMovies.value = result
-            _isLoading.value = false
         }
     }
+    fun setLoadingEnded() { _isLoading.value = false }
 }

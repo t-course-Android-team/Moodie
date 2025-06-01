@@ -24,6 +24,7 @@ import com.example.feature_search.domain.SearchMovieUseCase
 import com.example.utils.InternetChecker.isInternetAvailable
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -91,16 +92,12 @@ class SearchFragment : Fragment() {
 
                     true -> {
                         loadingContainer.visibility = View.VISIBLE
-                        loadingAnimation.playAnimation()
                         questions.visibility = View.GONE
                         searchButton.visibility = View.GONE
-
-
                     }
 
                     false -> {
                         loadingContainer.visibility = View.GONE
-                        loadingAnimation.cancelAnimation()
                         questions.visibility = View.VISIBLE
                         searchButton.visibility = View.VISIBLE
                     }
@@ -110,7 +107,7 @@ class SearchFragment : Fragment() {
 
         featureSearchViewModel.resultMovies.observe(viewLifecycleOwner) { movies ->
             movies?.let { data ->
-                if (isInternetAvailable(requireContext())) {
+                if (isInternetAvailable(requireContext()) && featureSearchViewModel.isLoading.value!!) {
 
                     val bundle = Bundle().apply {
                         putString(DATA, data)
@@ -118,7 +115,10 @@ class SearchFragment : Fragment() {
                     findNavController().navigate(
                         R.id.action_searchFragment_to_nav_graph_response, bundle
                     )
-
+                    lifecycleScope.launch {
+                        delay(500)
+                        featureSearchViewModel.setLoadingEnded()
+                    }
                 }
             }
         }

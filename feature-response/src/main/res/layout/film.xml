@@ -156,7 +156,8 @@
                     app:layout_constraintTop_toBottomOf="@id/genres" />
             </ScrollView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle"
                 android:id="@+id/buttonSeen"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
@@ -171,12 +172,13 @@
                 android:paddingRight="10dp"
                 android:drawableRight="@drawable/icon_eye_custom"
                 android:drawableTint="@color/white"
-                android:background="@drawable/button_background"
+                android:background="@drawable/button_background1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scroll"
                 app:layout_constraintBottom_toBottomOf="parent"
             />
-            <Button
+            <com.google.android.material.button.MaterialButton
+                style="@style/ButtonStyle"
                 android:id="@+id/buttonLike"
                 android:layout_width="140dp"
                 android:layout_height="40dp"
@@ -191,7 +193,7 @@
                 android:paddingRight="10dp"
                 android:drawableRight="@drawable/icon_like_custom"
                 android:drawableTint="@color/white"
-                android:background="@drawable/button_background"
+                android:background="@drawable/button_background1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scroll"
                 app:layout_constraintBottom_toBottomOf="parent"

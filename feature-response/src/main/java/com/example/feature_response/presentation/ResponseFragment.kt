@@ -6,18 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.WatchedMoviesRepoImpl
 import com.example.feature_response.R
-import com.example.feature_response.data.retrofit.RetrofitHelper
 import com.example.feature_response.databinding.ResponseFragmentBinding
 import com.example.feature_response.domain.FilmEntity
-import com.example.feature_response.data.retrofit.RemoteFilmRepository
 import com.example.feature_response.presentation.recycler.FilmsAdapter
 import com.example.feature_response.presentation.recycler.OverlayLayoutManager
 import com.example.feature_response.presentation.recycler.SwipeToDeleteCallback
@@ -78,8 +74,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        // sharedViewModel.getFilms(arguments?.getString(DATA))
-        sharedViewModel.getFilms("the lego batman movie*How to train your dragon*spider man no way home*Alien vs. Predator*Sonic the Hedgehog*truman show*Charlie and the Chocolate Factory*Batman v Superman: Dawn of Justice*The Terminator*Transformers")
+        sharedViewModel.getFilms(arguments?.getString(DATA))
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -143,6 +138,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
                         progressBar?.visibility = View.INVISIBLE
                         error?.visibility = View.INVISIBLE
                         errorButton?.visibility = View.INVISIBLE
+                        if (sharedViewModel.films.value.isNullOrEmpty()) sharedViewModel.emptyScreenError()
                     }
                     State.ERROR -> {
                         recyclerView?.visibility = View.INVISIBLE
