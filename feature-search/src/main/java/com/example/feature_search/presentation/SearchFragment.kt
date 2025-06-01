@@ -1,11 +1,17 @@
 package com.example.feature_search.presentation
 
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -47,6 +53,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initObserve()
         initTestButton()
+        FieldsInitializer.initTextFields(binding)
     }
 
     private fun initTestButton() {
@@ -112,6 +119,7 @@ class SearchFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putString(DATA, data)
                     }
+                    refreshTextFields()
                     findNavController().navigate(
                         R.id.action_searchFragment_to_nav_graph_response, bundle
                     )
@@ -125,10 +133,30 @@ class SearchFragment : Fragment() {
     }
 
     private fun showInternetError() {
-        Snackbar.make(
-            binding.root, "Нет интернет-соединения", Snackbar.LENGTH_LONG
-        ).setAction("Повторить") {
+        val snackbar = Snackbar.make(
+            binding.root, "No internet connection", Snackbar.LENGTH_LONG
+        ).setAction("Try Again") {
             initTestButton()
-        }.show()
+        }
+
+        val snackbarView = snackbar.view
+        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.typeface = ResourcesCompat.getFont(requireContext(), com.example.feature_response.R.font.muli_regular)
+        val actionView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        actionView.typeface = ResourcesCompat.getFont(requireContext(), com.example.feature_response.R.font.muli_bold)
+        actionView.isAllCaps = false
+
+        snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.main))
+
+        snackbar.show()
     }
+
+    private fun refreshTextFields() = with(binding) {
+        genreText.setText("")
+        countryText.setText("")
+        moodText.setText("")
+        referenceText.setText("")
+        releaseText.setText("")
+    }
+
 }

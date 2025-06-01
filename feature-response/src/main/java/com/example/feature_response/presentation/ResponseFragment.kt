@@ -74,7 +74,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        sharedViewModel.getFilms(arguments?.getString(DATA))
+        sharedViewModel.getFilms("Alien*Predator*El Camino")
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -87,7 +87,6 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
             sharedViewModel.refresh()
             findNavController().popBackStack()
         }
-
         manageLoading()
     }
 

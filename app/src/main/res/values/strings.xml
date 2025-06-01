@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">moodBook</string>
-    <string name="search">Поиск</string>
-    <string name="liked">Сохранённые</string>
+    <string name="search">Search</string>
+    <string name="liked">Saved</string>
 </resources>

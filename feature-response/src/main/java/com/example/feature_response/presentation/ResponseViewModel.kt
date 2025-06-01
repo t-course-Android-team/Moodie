@@ -51,7 +51,8 @@ internal class ResponseViewModel @Inject constructor(
                     if (query == null || query == "null") {
                         throw IllegalStateException("no movies found")
                     } else {
-                        if (queryToTitlesList(query).isEmpty()) throw IllegalStateException("no movies found")
+                        if (queryToTitlesList(query).isEmpty())
+                            throw IllegalStateException("no movies found")
                         queryToTitlesList(query).forEach {
                             val film = repository.getFilm(it)
                             withContext(Dispatchers.Main) {
