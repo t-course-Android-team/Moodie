@@ -21,4 +21,6 @@ interface WatchedMoviesRepo {
     suspend fun isMovieSaved(movieName: String): Boolean
 
     suspend fun updateMovieIsSaved(movieName: String, newIsSaved: Boolean): Unit
+
+    suspend fun deleteMovie(movieName: String): Unit
 }

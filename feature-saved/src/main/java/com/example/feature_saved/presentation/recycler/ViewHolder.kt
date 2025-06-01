@@ -2,17 +2,32 @@ package com.example.feature_saved.presentation.recycler
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.data.WatchedMoviesEntity
 import com.example.feature_saved.databinding.FilmBinding
-import com.example.feature_saved.domain.FilmEntity
 
-class ViewHolder(private val binding: FilmBinding) : RecyclerView.ViewHolder(binding.root) {
+class ViewHolder(
+    private val binding: FilmBinding,
+    private val deleteMovie: (String) -> Unit,
+    private val watchMovie: (String) -> Unit
+) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(item: FilmEntity) = with(binding) {
-        name.text = "$item.name"
+    fun bind(item: WatchedMoviesEntity) = with(binding) {
+        name.text = "${item.name}"
+        release.text = "${item.yearRelease}"
+        duration.text = "${item.duration}"
+        genres.text = "${item.genres}"
         updatePoster(item.posterUrl)
+
+        watchedBtn.setOnClickListener {
+            watchMovie(name.text.toString())
+        }
+
+        deleteBtn.setOnClickListener {
+            deleteMovie(name.text.toString())
+        }
     }
 
-    fun updatePoster(posterUrl: String) {
+    private fun updatePoster(posterUrl: String) {
         Glide.with(itemView.context).load(posterUrl).into(binding.image)
     }
 

@@ -1,14 +1,14 @@
 package com.example.feature_saved.presentation.recycler
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.feature_saved.domain.FilmEntity
+import com.example.data.WatchedMoviesEntity
 
-class FilmDiffUtil: DiffUtil.ItemCallback<FilmEntity>() {
-    override fun areItemsTheSame(oldItem: FilmEntity, newItem: FilmEntity): Boolean {
+class FilmDiffUtil: DiffUtil.ItemCallback<WatchedMoviesEntity>() {
+    override fun areItemsTheSame(oldItem: WatchedMoviesEntity, newItem: WatchedMoviesEntity): Boolean {
         return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: FilmEntity, newItem: FilmEntity): Boolean {
+    override fun areContentsTheSame(oldItem: WatchedMoviesEntity, newItem: WatchedMoviesEntity): Boolean {
         return oldItem == newItem
     }
 }

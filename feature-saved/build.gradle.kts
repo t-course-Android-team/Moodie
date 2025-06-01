@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    id("kotlinx-serialization")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,12 +33,17 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    dataBinding {
+        enable = true
+    }
     buildFeatures {
         viewBinding = true
     }
 }
 
 dependencies {
+
+    implementation(project(":core"))
 
     implementation(libs.github.glide)
     implementation(libs.androidx.navigation.fragment)
@@ -57,4 +65,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.shimmer)
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp(libs.hilt.android.compiler)
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+
 }

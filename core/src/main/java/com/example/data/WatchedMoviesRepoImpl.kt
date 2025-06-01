@@ -44,4 +44,8 @@ class WatchedMoviesRepoImpl @Inject constructor(
         moviesDao.updateMovieIsSaved(movieName, newIsSaved)
     }
 
+    override suspend fun deleteMovie(movieName: String) {
+        moviesDao.deleteMovie(movieName)
+    }
+
 }

@@ -39,4 +39,7 @@ interface WatchedMoviesDao {
 
     @Query("UPDATE watched_movies_db SET isSaved = :newIsSaved WHERE name = :movieName")
     suspend fun updateMovieIsSaved(movieName: String, newIsSaved: Boolean)
+
+    @Query("DELETE FROM watched_movies_db WHERE name = :movieName")
+    suspend fun deleteMovie(movieName: String)
 }
