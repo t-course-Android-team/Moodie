@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_of_sort">
+        <item>Genre</item>
+        <item>Year of release</item>
+    </string-array>
+</resources>

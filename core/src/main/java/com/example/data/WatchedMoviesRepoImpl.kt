@@ -18,6 +18,10 @@ class WatchedMoviesRepoImpl @Inject constructor(
         return moviesDao.getCount()
     }
 
+    override suspend fun getSavedMoviesCount(): Int {
+        return moviesDao.getSavedCount()
+    }
+
     override suspend fun isMovieWatched(movieName: String): Boolean {
         return moviesDao.isMovieWatched(movieName)
     }
@@ -36,12 +40,26 @@ class WatchedMoviesRepoImpl @Inject constructor(
         )
     }
 
+    override suspend fun getPagedSavedMovies(
+        offset: Int,
+        limit: Int
+    ): List<WatchedMoviesEntity> {
+        return moviesDao.getSavedMoviesByLimit(
+            offset = offset,
+            limit = limit
+        )
+    }
+
     override suspend fun isMovieSaved(movieName: String): Boolean {
         return moviesDao.isMovieSaved(movieName)
     }
 
     override suspend fun updateMovieIsSaved(movieName: String, newIsSaved: Boolean) {
         moviesDao.updateMovieIsSaved(movieName, newIsSaved)
+    }
+
+    override suspend fun deleteMovie(movieName: String) {
+        moviesDao.deleteMovie(movieName)
     }
 
 }
