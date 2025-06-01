@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:cardElevation="0dp"
+
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,10 +157,12 @@
                     app:layout_constraintTop_toBottomOf="@id/genres" />
             </ScrollView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/main"
+                app:cornerRadius="150dp"
                 android:id="@+id/buttonSeen"
                 android:layout_width="140dp"
-                android:layout_height="40dp"
+                android:layout_height="55dp"
                 android:textColor="@color/white"
                 android:text="@string/already_seen"
                 android:fontFamily="@font/muli_bold"
@@ -171,15 +174,16 @@
                 android:paddingRight="10dp"
                 android:drawableRight="@drawable/icon_eye_custom"
                 android:drawableTint="@color/white"
-                android:background="@drawable/button_background"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scroll"
                 app:layout_constraintBottom_toBottomOf="parent"
             />
-            <Button
+            <com.google.android.material.button.MaterialButton
+                android:backgroundTint="@color/main"
+                app:cornerRadius="150dp"
                 android:id="@+id/buttonLike"
                 android:layout_width="140dp"
-                android:layout_height="40dp"
+                android:layout_height="55dp"
                 android:textColor="@color/white"
                 android:text="@string/like_it"
                 android:fontFamily="@font/muli_bold"
@@ -191,7 +195,6 @@
                 android:paddingRight="10dp"
                 android:drawableRight="@drawable/icon_like_custom"
                 android:drawableTint="@color/white"
-                android:background="@drawable/button_background"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/scroll"
                 app:layout_constraintBottom_toBottomOf="parent"

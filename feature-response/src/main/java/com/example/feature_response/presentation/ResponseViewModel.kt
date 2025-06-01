@@ -49,8 +49,10 @@ internal class ResponseViewModel @Inject constructor(
                 flow {
                     emit(State.LOADING)
                     if (query == null || query == "null") {
-                        emit(State.ERROR)
+                        throw IllegalStateException("no movies found")
                     } else {
+                        if (queryToTitlesList(query).isEmpty())
+                            throw IllegalStateException("no movies found")
                         queryToTitlesList(query).forEach {
                             val film = repository.getFilm(it)
                             withContext(Dispatchers.Main) {
@@ -63,7 +65,7 @@ internal class ResponseViewModel @Inject constructor(
                     emit(State.OK)
                 }
                     .flowOn(Dispatchers.IO)
-                    .catch { emit(State.ERROR) }
+                    .catch { _state.emit(State.ERROR) }
                     .collect(_state)
             }
         }
@@ -126,8 +128,14 @@ internal class ResponseViewModel @Inject constructor(
         }
     }
 
+    fun emptyScreenError() {
+        viewModelScope.launch {
+            _state.emit(State.ERROR)
+        }
+    }
+
     private fun queryToTitlesList(query: String): List<String> {
-        return query.split("*")
+        return query.split("*").toMutableList().take(10)
     }
 
 }
