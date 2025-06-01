@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
     <TextView
         android:id="@+id/textView"
@@ -11,18 +12,108 @@
         android:layout_height="wrap_content"
         android:text="Search"
         android:textSize="50sp"
-        android:textColor="@color/design_default_color_primary"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/questions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/search_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <EditText
+            android:id="@+id/genre_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:hint="Genre"
+            android:inputType="textPersonName"
+            android:textSize="30sp"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/mood_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:hint="Mood"
+            android:inputType="textPersonName"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/genre_text" />
+
+        <EditText
+            android:id="@+id/release_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:hint="Release"
+            android:inputType="textPersonName"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/mood_text" />
+
+        <EditText
+            android:id="@+id/country_text"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:hint="Country"
+            android:inputType="textPersonName"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/release_text" />
+
+        <EditText
+            android:id="@+id/reference_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:hint="Reference"
+            android:inputType="textPersonName"
+            android:textSize="30sp"
+            app:layout_constraintTop_toBottomOf="@+id/country_text" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/loadingContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        >
+
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingAnimation"
+            android:layout_width="800dp"
+            android:layout_height="800dp"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="true"
+
+            app:lottie_rawRes="@raw/dots_anim"
+            app:lottie_speed="1.5" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

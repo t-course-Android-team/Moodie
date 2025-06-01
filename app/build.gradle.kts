@@ -1,8 +1,14 @@
+import org.gradle.kotlin.dsl.android
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("androidx.navigation.safeargs.kotlin")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
+
+
 }
 
 android {
@@ -42,6 +48,7 @@ android {
 
 dependencies {
 
+    implementation(project(":core"))
     implementation(project(":feature-search"))
     implementation(project(":feature-response"))
     implementation(project(":feature-saved"))
@@ -65,4 +72,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
+    implementation("com.google.dagger:hilt-android:2.56.2")
+    ksp(libs.hilt.android.compiler)
+
+
 }

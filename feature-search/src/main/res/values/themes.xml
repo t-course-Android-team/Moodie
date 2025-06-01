@@ -2,4 +2,15 @@
 <resources>
 
     <style name="Theme.MoodBook" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="InputFieldStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/design_default_color_primary </item>
+        <item name="hintTextColor">@android:color/darker_gray</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+    </style>
 </resources>
