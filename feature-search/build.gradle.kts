@@ -25,8 +25,13 @@ android {
         )
         buildConfigField(
             "String",
-            "ADMIN_OPENROUTER_API_KEY",
-            "\"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\""
+            "ADMIN_OPENROUTER_API_KEY_2",
+            "\"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\""
+        )
+        buildConfigField(
+            "String",
+            "ADMIN_OPENROUTER_API_KEY_V2",
+            "\"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\""
         )
     }
 
@@ -79,17 +84,17 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
-    implementation("com.google.code.gson:gson:2.10.1")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("androidx.room:room-runtime:2.7.1")
-    implementation("androidx.room:room-ktx:2.7.1")
+    implementation(libs.kotlinx.serialization.json.v173)
+    implementation(libs.retrofit2.kotlinx.serialization.converter.v080)
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+    implementation(libs.gson)
+    implementation(libs.converter.gson)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
-    implementation ("com.airbnb.android:lottie:6.6.6")
-    implementation("com.google.dagger:hilt-android:2.56.2")
+    implementation (libs.lottie)
+    implementation(libs.hilt.android.v2562)
     ksp(libs.hilt.android.compiler)
 
 

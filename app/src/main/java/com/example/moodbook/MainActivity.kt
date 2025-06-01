@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.feature_response.presentation.ResponseFragment
 import com.example.feature_saved.presentation.SavedFragment
 import com.example.feature_search.presentation.SearchFragment
 import com.example.moodbook.databinding.ActivityBinding
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
                 }
                 is SearchFragment -> {
                     finish()
+                }
+                is ResponseFragment -> {
+
                 }
             }
         }

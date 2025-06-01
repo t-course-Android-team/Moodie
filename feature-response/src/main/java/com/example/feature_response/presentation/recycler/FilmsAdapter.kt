@@ -1,5 +1,6 @@
 package com.example.feature_response.presentation.recycler
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -37,6 +38,8 @@ class FilmsAdapter : RecyclerView.Adapter<ViewHolder>() {
             save.setOnClickListener {
                 actionSave(data, adapterPosition)
                 seen.isEnabled = true
+                seen.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.main))
+                save.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.disabled))
                 save.isEnabled = false
                 isButtonSeenEnabled = true
                 isButtonSavedEnabled = false
@@ -44,6 +47,8 @@ class FilmsAdapter : RecyclerView.Adapter<ViewHolder>() {
             seen.setOnClickListener {
                 actionSeen(data, adapterPosition)
                 seen.isEnabled = false
+                save.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.main))
+                seen.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.disabled))
                 save.isEnabled = true
                 isButtonSeenEnabled = false
                 isButtonSavedEnabled = true
@@ -73,6 +78,13 @@ class FilmsAdapter : RecyclerView.Adapter<ViewHolder>() {
             itemView.isClickable = false
             itemView.isFocusable = false
             itemView.isEnabled = false
+        }
+        if (seen.isEnabled && !save.isEnabled) {
+            seen.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.main))
+            save.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.disabled))
+        } else if (!seen.isEnabled && save.isEnabled) {
+            save.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.main))
+            seen.setBackgroundColor(ContextCompat.getColor(itemView.context, R.color.disabled))
         }
     }
 
