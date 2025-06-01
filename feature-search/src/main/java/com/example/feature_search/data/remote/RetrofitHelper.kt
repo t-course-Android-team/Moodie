@@ -23,7 +23,7 @@ internal object RetrofitHelper {
 
     fun createAdminAPI(): OpenRouterAdminAPI {
         return Retrofit.Builder().baseUrl("https://openrouter.ai/api/v1/")
-            .client(createOkHttpClient(BuildConfig.ADMIN_OPENROUTER_API_KEY_V2))
+            .client(createOkHttpClient(BuildConfig.ADMIN_OPENROUTER_API_KEY_2))
             .addConverterFactory(json.asConverterFactory("application/json".toMediaType())).build()
             .create(OpenRouterAdminAPI::class.java)
     }
