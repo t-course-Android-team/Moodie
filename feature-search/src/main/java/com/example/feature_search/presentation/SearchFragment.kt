@@ -1,10 +1,7 @@
 package com.example.feature_search.presentation
 
-import android.content.Context
-import android.graphics.Typeface
+
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +10,12 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.data.WatchedMoviesDao
-import com.example.data.WatchedMoviesDataBase
-import com.example.data.WatchedMoviesRepoImpl
 import com.example.feature_search.R
 import com.example.feature_search.databinding.SearchFragmentBinding
 import com.example.feature_response.presentation.ResponseFragment.Companion.DATA
-import com.example.feature_search.domain.RemoteOpenRouterRepository
-import com.example.feature_search.domain.RepositoryFactory
-import com.example.feature_search.domain.SearchMovieUseCase
 import com.example.utils.InternetChecker.isInternetAvailable
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -119,7 +108,7 @@ class SearchFragment : Fragment() {
                     val bundle = Bundle().apply {
                         putString(DATA, data)
                     }
-                    refreshTextFields()
+                    if (data != "null") refreshTextFields()
                     findNavController().navigate(
                         R.id.action_searchFragment_to_nav_graph_response, bundle
                     )

@@ -74,7 +74,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        sharedViewModel.getFilms("Alien*Predator*El Camino")
+        sharedViewModel.getFilms(requireArguments().getString(DATA))
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
