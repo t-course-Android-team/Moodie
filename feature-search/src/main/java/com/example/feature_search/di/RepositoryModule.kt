@@ -1,10 +1,6 @@
 package com.example.feature_search.di
 
 import android.content.Context
-import com.example.data.WatchedMoviesDao
-import com.example.data.WatchedMoviesDataBase
-import com.example.data.WatchedMoviesRepoImpl
-import com.example.domain.WatchedMoviesRepo
 import com.example.feature_search.BuildConfig
 import com.example.feature_search.domain.RemoteOpenRouterRepository
 import com.example.feature_search.domain.RepositoryFactory

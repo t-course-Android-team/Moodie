@@ -85,7 +85,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.serialization.json.v173)
-    implementation(libs.retrofit2.kotlinx.serialization.converter.v080)
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.gson)

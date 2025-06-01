@@ -7,8 +7,6 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import kotlin.apply
-import kotlin.jvm.java
 
 internal object RetrofitHelper {
     private val json = kotlinx.serialization.json.Json {
@@ -46,7 +44,7 @@ internal object RetrofitHelper {
             val request =
                 chain.request().newBuilder().addHeader("Authorization", "Bearer $apiKey").apply {
 
-                    }.build()
+                }.build()
             chain.proceed(request)
         }.build()
     }

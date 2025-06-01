@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.feature_response.presentation.ResponseFragment.Companion.DATA
 import com.example.feature_search.R
 import com.example.feature_search.databinding.SearchFragmentBinding
-import com.example.feature_response.presentation.ResponseFragment.Companion.DATA
 import com.example.utils.InternetChecker.isInternetAvailable
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -129,10 +129,16 @@ class SearchFragment : Fragment() {
         }
 
         val snackbarView = snackbar.view
-        val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-        textView.typeface = ResourcesCompat.getFont(requireContext(), com.example.feature_response.R.font.muli_regular)
-        val actionView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
-        actionView.typeface = ResourcesCompat.getFont(requireContext(), com.example.feature_response.R.font.muli_bold)
+        val textView =
+            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView.typeface = ResourcesCompat.getFont(
+            requireContext(),
+            com.example.feature_response.R.font.muli_regular
+        )
+        val actionView =
+            snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        actionView.typeface =
+            ResourcesCompat.getFont(requireContext(), com.example.feature_response.R.font.muli_bold)
         actionView.isAllCaps = false
 
         snackbar.setActionTextColor(ContextCompat.getColor(requireContext(), R.color.main))

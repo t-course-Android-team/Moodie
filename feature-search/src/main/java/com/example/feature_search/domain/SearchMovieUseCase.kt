@@ -6,17 +6,17 @@ import com.example.feature_search.data.remote.Message
 import com.example.feature_search.presentation.RequestUIModel
 import javax.inject.Inject
 
-class SearchMovieUseCase  @Inject constructor
-    ( private val apiKeyProvider: ApiKeyProvider , private val repository: WatchedMoviesRepo) {
+class SearchMovieUseCase @Inject constructor
+    (private val apiKeyProvider: ApiKeyProvider, private val repository: WatchedMoviesRepo) {
 
-    suspend operator fun invoke(movie: RequestUIModel) : String{
-        return try{
+    suspend operator fun invoke(movie: RequestUIModel): String {
+        return try {
             with(movie) {
                 val prompt = buildString {
                     append("pick 10 movies ")
                     if (genre != null) append("in the genre $genre ")
                     if (released != null) append("of these years $released ")
-                    if (mood!=null) append("in these move $mood ")
+                    if (mood != null) append("in these move $mood ")
                     if (country != null) append("from these country $country ")
                     if (reference != null) append("similar to $reference ")
                     append("Here is a list of movies that I have already watched. They don't need to be offered ")
@@ -40,11 +40,12 @@ class SearchMovieUseCase  @Inject constructor
             }
 
 
-        } catch (e: Exception){
-         return   "Error: ${e.message}"
+        } catch (e: Exception) {
+            return "Error: ${e.message}"
         }
 
     }
+
     private fun formatMoviesResponse(rawResponse: String): String {
         return rawResponse
 //            .replace(" ", "*")

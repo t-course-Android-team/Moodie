@@ -1,7 +1,6 @@
 package com.example.feature_search.domain
 
 import com.example.feature_search.data.remote.CreateKeyRequest
-import java.io.IOException
 import javax.inject.Inject
 
 class CreateNewApiKeyUseCase @Inject constructor(

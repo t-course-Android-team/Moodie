@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.data.WatchedMoviesRepoImpl
 import com.example.domain.WatchedMoviesRepo
 import com.example.feature_response.data.database.WatchedMoviesMapper
 import com.example.feature_response.domain.FilmEntity
@@ -25,7 +24,7 @@ import javax.inject.Inject
 internal class ResponseViewModel @Inject constructor(
     private val repository: FilmRepository,
     private val localRepository: WatchedMoviesRepo
-)  : ViewModel() {
+) : ViewModel() {
 
     private val _films = MutableLiveData<List<FilmEntity>>()
     val films: LiveData<List<FilmEntity>> = _films
@@ -43,7 +42,7 @@ internal class ResponseViewModel @Inject constructor(
     val state: StateFlow<State> = _state.asStateFlow()
 
     fun getFilms(query: String?) {
-        if(_state.value == State.START) {
+        if (_state.value == State.START) {
             _films.value = listOf()
             viewModelScope.launch {
                 flow {
@@ -84,14 +83,19 @@ internal class ResponseViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    if (!localRepository.isMovieWatched(film.name)){
+                    if (!localRepository.isMovieWatched(film.name)) {
                         localRepository.insertWatchedMovie(WatchedMoviesMapper.map(film, true))
                     }
-                    if (localRepository.isMovieWatched(film.name) && !localRepository.isMovieSaved(film.name)) {
+                    if (localRepository.isMovieWatched(film.name) && !localRepository.isMovieSaved(
+                            film.name
+                        )
+                    ) {
                         localRepository.updateMovieIsSaved(film.name, true)
                     }
                 }
-            } catch (t: Throwable) { _state.emit(State.ERROR) }
+            } catch (t: Throwable) {
+                _state.emit(State.ERROR)
+            }
         }
     }
 
@@ -99,14 +103,19 @@ internal class ResponseViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    if (!localRepository.isMovieWatched(film.name)){
+                    if (!localRepository.isMovieWatched(film.name)) {
                         localRepository.insertWatchedMovie(WatchedMoviesMapper.map(film, false))
                     }
-                    if (localRepository.isMovieWatched(film.name) && localRepository.isMovieSaved(film.name)) {
+                    if (localRepository.isMovieWatched(film.name) && localRepository.isMovieSaved(
+                            film.name
+                        )
+                    ) {
                         localRepository.updateMovieIsSaved(film.name, false)
                     }
                 }
-            } catch (t: Throwable) { _state.emit(State.ERROR) }
+            } catch (t: Throwable) {
+                _state.emit(State.ERROR)
+            }
         }
     }
 

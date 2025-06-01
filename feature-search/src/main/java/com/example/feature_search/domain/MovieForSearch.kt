@@ -1,6 +1,6 @@
 package com.example.feature_search.domain
 
-data class MovieForSearch (
+data class MovieForSearch(
     val genre: String?,
     val released: String?,
     val mood: String?,

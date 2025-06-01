@@ -8,7 +8,7 @@ sealed class State {
         val loadingPrevious: Boolean = false
     ) : State()
 
-    object Loading: State()
+    object Loading : State()
 
     data class Error(
         val message: String,

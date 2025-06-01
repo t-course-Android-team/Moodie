@@ -32,5 +32,8 @@ class FeatureSearchViewModel @Inject constructor(
             _resultMovies.value = result
         }
     }
-    fun setLoadingEnded() { _isLoading.value = false }
+
+    fun setLoadingEnded() {
+        _isLoading.value = false
+    }
 }

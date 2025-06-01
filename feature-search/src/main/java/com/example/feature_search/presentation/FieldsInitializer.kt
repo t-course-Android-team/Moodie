@@ -17,6 +17,7 @@ internal object FieldsInitializer {
                     genreImage.visibility = android.view.View.INVISIBLE
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
         moodText.addTextChangedListener(object : TextWatcher {
@@ -30,6 +31,7 @@ internal object FieldsInitializer {
                     moodImage.visibility = android.view.View.INVISIBLE
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
         releaseText.addTextChangedListener(object : TextWatcher {
@@ -43,6 +45,7 @@ internal object FieldsInitializer {
                     releaseImage.visibility = android.view.View.INVISIBLE
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
         countryText.addTextChangedListener(object : TextWatcher {
@@ -56,6 +59,7 @@ internal object FieldsInitializer {
                     countryImage.visibility = android.view.View.INVISIBLE
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
         referenceText.addTextChangedListener(object : TextWatcher {
@@ -69,6 +73,7 @@ internal object FieldsInitializer {
                     referenceImage.visibility = android.view.View.INVISIBLE
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
     }

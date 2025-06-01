@@ -25,15 +25,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initBottomMenu()
         val callback = onBackPressedDispatcher.addCallback(this) {
-            val currentFragment = supportFragmentManager.primaryNavigationFragment?.childFragmentManager?.fragments?.firstOrNull()
+            val currentFragment =
+                supportFragmentManager.primaryNavigationFragment?.childFragmentManager?.fragments?.firstOrNull()
             when (currentFragment) {
                 is SavedFragment -> {
-                    val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                    bottomNavigationView.selectedItemId = com.example.feature_search.R.id.nav_graph_search
+                    val bottomNavigationView =
+                        findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                    bottomNavigationView.selectedItemId =
+                        com.example.feature_search.R.id.nav_graph_search
                 }
+
                 is SearchFragment -> {
                     finish()
                 }
+
                 is ResponseFragment -> {
 
                 }
@@ -43,7 +48,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initBottomMenu() {
         val bottomNavigationView = binding.bottomNavigationView
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.containerView) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.containerView) as NavHostFragment
         navController = navHostFragment.navController
         bottomNavigationView.setupWithNavController(navController)
     }

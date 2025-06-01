@@ -17,9 +17,9 @@ import com.example.feature_response.domain.FilmEntity
 import com.example.feature_response.presentation.recycler.FilmsAdapter
 import com.example.feature_response.presentation.recycler.OverlayLayoutManager
 import com.example.feature_response.presentation.recycler.SwipeToDeleteCallback
-import com.example.presentation.MainApplication
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+
 @AndroidEntryPoint
 class ResponseFragment : Fragment(R.layout.response_fragment) {
 
@@ -55,7 +55,8 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         )
         customAdapter.actionSave = clickOnSave
         customAdapter.actionSeen = clickOnSeen
-        recyclerView.layoutManager = OverlayLayoutManager(requireContext()).apply { initializeLayout() }
+        recyclerView.layoutManager =
+            OverlayLayoutManager(requireContext()).apply { initializeLayout() }
         recyclerView.adapter = customAdapter
 
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
@@ -76,12 +77,14 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
 
         sharedViewModel.getFilms(requireArguments().getString(DATA))
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                sharedViewModel.refresh()
-                findNavController().popBackStack()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    sharedViewModel.refresh()
+                    findNavController().popBackStack()
+                }
+            })
 
         binding.errorButton.setOnClickListener {
             sharedViewModel.refresh()
@@ -120,10 +123,11 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
                 val progressBar = view?.findViewById<View>(R.id.progressBar)
                 val error = view?.findViewById<View>(R.id.error)
                 val errorButton = view?.findViewById<View>(R.id.errorButton)
-                when(it) {
+                when (it) {
                     State.START -> {
                         // может в будущем пригодиться
                     }
+
                     State.LOADING -> {
                         recyclerView?.visibility = View.INVISIBLE
                         loading?.visibility = View.VISIBLE
@@ -131,6 +135,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
                         error?.visibility = View.INVISIBLE
                         errorButton?.visibility = View.INVISIBLE
                     }
+
                     State.OK -> {
                         recyclerView?.visibility = View.VISIBLE
                         loading?.visibility = View.INVISIBLE
@@ -139,6 +144,7 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
                         errorButton?.visibility = View.INVISIBLE
                         if (sharedViewModel.films.value.isNullOrEmpty()) sharedViewModel.emptyScreenError()
                     }
+
                     State.ERROR -> {
                         recyclerView?.visibility = View.INVISIBLE
                         loading?.visibility = View.INVISIBLE

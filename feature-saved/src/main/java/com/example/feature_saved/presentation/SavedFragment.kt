@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.feature_saved.R
 import com.example.feature_saved.databinding.SavedFragmentBinding
 import com.example.feature_saved.presentation.recycler.SavedFragmentAdapter
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class SavedFragment : Fragment(R.layout.saved_fragment) {
@@ -23,6 +22,7 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
     private val viewModel: SavedFragmentViewModel by activityViewModels {
         ViewModelFactory(requireActivity().application)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = SavedFragmentBinding.inflate(layoutInflater)
@@ -32,7 +32,7 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
         lifecycleScope.launch {
             viewModel.getSavedCount()
             viewModel.savedCount.collect { number ->
-                if (number != viewModel.films.value?.size){
+                if (number != viewModel.films.value?.size) {
                     viewModel.loadInitialData()
                     viewModel.savedCount.value = viewModel.films.value?.size ?: 0
                 }
@@ -57,13 +57,13 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
         observeViewModel()
     }
 
-    private fun setupRecyclerView(){
+    private fun setupRecyclerView() {
         adapter = SavedFragmentAdapter(
             deleteMovie = { name ->
-                viewModel.deleteMovie(name, {adapter.notifyDataSetChanged()})
+                viewModel.deleteMovie(name, { adapter.notifyDataSetChanged() })
             },
             watchMovie = { name ->
-                viewModel.watchMovie(name, {adapter.notifyDataSetChanged()})
+                viewModel.watchMovie(name, { adapter.notifyDataSetChanged() })
             }
         )
 
@@ -90,6 +90,7 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
                         viewModel.loadMoreItems()
                     }
                 }
+
                 else -> {}
             }
         }
@@ -111,7 +112,7 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
     }
 
     private fun showContentState(state: State.Content) {
-        with (binding) {
+        with(binding) {
             shimmerViewContainer.isVisible = false
             recyclerView.isVisible = true
 
@@ -121,14 +122,14 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
     }
 
     private fun showErrorState(state: State.Error) {
-        with (binding) {
+        with(binding) {
             shimmerViewContainer.isVisible = false
             recyclerView.isVisible = false
         }
     }
 
     private fun showLoadingState() {
-        with (binding) {
+        with(binding) {
             shimmerViewContainer.isVisible = true
             recyclerView.isVisible = false
         }

@@ -1,12 +1,9 @@
 package com.example.feature_search.presentation
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.feature_search.domain.ApiKeyProvider
-import com.example.feature_search.domain.CreateNewApiKeyUseCase
 import com.example.feature_search.domain.SearchMovieUseCase
-import javax.inject.Inject
 
 class FeatureSearchViewModelFactory(
     private val searchMovieUseCase: SearchMovieUseCase, private val apiKeyProvider: ApiKeyProvider
