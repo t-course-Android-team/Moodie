@@ -11,4 +11,5 @@
     <color name="background_fragment">#F7F5FB</color>
     <color name="shadow">#6A5ACD</color>
     <color name="gray">#A6A6A6</color>>
+    <color name="white">#FFFFFF</color>
 </resources>

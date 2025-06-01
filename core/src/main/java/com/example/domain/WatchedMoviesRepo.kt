@@ -9,11 +9,18 @@ interface WatchedMoviesRepo {
 
     suspend fun getWatchedMoviesCount(): Int
 
+    suspend fun getSavedMoviesCount(): Int
+
     suspend fun isMovieWatched(movieName: String): Boolean
 
     suspend fun removeOldestMovies(count: Int)
 
     suspend fun getPagedWatchedMovies(
+        offset: Int,
+        limit: Int
+    ): List<WatchedMoviesEntity>
+
+    suspend fun getPagedSavedMovies(
         offset: Int,
         limit: Int
     ): List<WatchedMoviesEntity>

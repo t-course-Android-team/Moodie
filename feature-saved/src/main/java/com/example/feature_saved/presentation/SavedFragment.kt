@@ -4,16 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Spinner
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.feature_saved.R
 import com.example.feature_saved.databinding.SavedFragmentBinding
 import com.example.feature_saved.presentation.recycler.SavedFragmentAdapter
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SavedFragment : Fragment(R.layout.saved_fragment) {
     private lateinit var binding: SavedFragmentBinding
@@ -25,6 +26,19 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = SavedFragmentBinding.inflate(layoutInflater)
+    }
+
+    override fun onResume() {
+        lifecycleScope.launch {
+            viewModel.getSavedCount()
+            viewModel.savedCount.collect { number ->
+                if (number != viewModel.films.value?.size){
+                    viewModel.loadInitialData()
+                    viewModel.savedCount.value = viewModel.films.value?.size ?: 0
+                }
+            }
+        }
+        super.onResume()
     }
 
     override fun onCreateView(
@@ -41,29 +55,15 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
         binding = SavedFragmentBinding.bind(view)
         setupRecyclerView()
         observeViewModel()
-
-        val spinner: Spinner = binding.typeOfSortSpinner
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.type_of_sort,
-            android.R.layout.simple_spinner_item
-        ).also { adapter ->
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            spinner.adapter = adapter
-        }
-
-        binding.retryButton.setOnClickListener {
-            viewModel.loadInitialData()
-        }
     }
 
     private fun setupRecyclerView(){
         adapter = SavedFragmentAdapter(
             deleteMovie = { name ->
-                viewModel.deleteMovie(name)
+                viewModel.deleteMovie(name, {adapter.notifyDataSetChanged()})
             },
             watchMovie = { name ->
-                viewModel.watchMovie(name)
+                viewModel.watchMovie(name, {adapter.notifyDataSetChanged()})
             }
         )
 
@@ -112,9 +112,7 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
 
     private fun showContentState(state: State.Content) {
         with (binding) {
-            shimmerViewContainer.stopShimmer()
             shimmerViewContainer.isVisible = false
-            errorContainer.isVisible = false
             recyclerView.isVisible = true
 
             loadMoreProgress.isVisible = state.loadingMore
@@ -124,19 +122,14 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
 
     private fun showErrorState(state: State.Error) {
         with (binding) {
-            shimmerViewContainer.stopShimmer()
             shimmerViewContainer.isVisible = false
-            errorContainer.isVisible = true
-            errorMessage.text = state.message
             recyclerView.isVisible = false
         }
     }
 
     private fun showLoadingState() {
         with (binding) {
-            shimmerViewContainer.startShimmer()
             shimmerViewContainer.isVisible = true
-            errorContainer.isVisible = false
             recyclerView.isVisible = false
         }
     }

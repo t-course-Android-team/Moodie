@@ -9,7 +9,8 @@
     app:layout_constraintTop_toTopOf="parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="10dp"
-    android:background="@drawable/shadow">
+    android:background="@drawable/shadow"
+    android:layout_marginVertical="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:padding="4dp"
@@ -19,33 +20,31 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="64.dp"
-            android:layout_height="64dp"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_width="54dp"
+            android:layout_height="81dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginVertical="4dp"
             android:adjustViewBounds="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:elevation="10dp"
-            android:background="@drawable/shadow"/>
+            android:elevation="10dp"/>
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:elevation="10dp"
             android:fontFamily="@font/muli_bold"
             android:gravity="center_vertical"
-            android:padding="4dp"
+            android:paddingVertical="4dp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.153"
             tools:text="Name film" />
 
         <TextView
@@ -53,8 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/muli_regular"
+            android:layout_marginLeft="10dp"
             android:gravity="left"
-            android:paddingLeft="10dp"
             android:text="2023"
             android:textColor="@color/gray"
             app:layout_constraintStart_toEndOf="@+id/image"
@@ -101,11 +100,11 @@
             android:layout_marginTop="4dp"
             android:ellipsize="marquee"
             android:focusable="true"
+            android:layout_marginLeft="10dp"
             android:focusableInTouchMode="true"
             android:fontFamily="@font/muli_regular"
             android:gravity="left"
             android:marqueeRepeatLimit="marquee_forever"
-            android:paddingLeft="10dp"
             android:singleLine="true"
             android:text="Science Fiction, Horror, Action"
             android:textColor="@color/gray"
@@ -114,28 +113,56 @@
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toBottomOf="@id/releaseText" />
 
-        <Button
-            android:id="@+id/watched_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:fontFamily="@font/muli_bold"
-            android:textColor="@color/background"
-            android:text="watched"
-            android:background="@drawable/button_background"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/delete_btn"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/delete_btn"
             android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:text="delete"
+            android:layout_height="40dp"
             android:layout_marginEnd="12dp"
-            android:drawableRight="@drawable/trash_custom"
+            android:layout_marginTop="3dp"
+            android:backgroundTint="@color/shadow"
+            app:cornerRadius="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+        />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/watched_btn"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="3dp"
+            android:backgroundTint="@color/shadow"
+            app:cornerRadius="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/delete_btn"
+
+            />
+        <ImageView
+        android:id="@+id/imageTrash"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/trash_custom"
+        app:tint="@color/white"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="@id/delete_btn"
+        app:layout_constraintBottom_toBottomOf="@id/delete_btn"
+        app:layout_constraintStart_toStartOf="@id/delete_btn"
+        app:layout_constraintEnd_toEndOf="@id/delete_btn"/>
+        <ImageView
+            android:id="@+id/eyeImage"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/eye"
+            app:tint="@color/white"
+            android:elevation="2dp"
+            app:layout_constraintTop_toTopOf="@id/watched_btn"
+            app:layout_constraintBottom_toBottomOf="@id/watched_btn"
+            app:layout_constraintStart_toStartOf="@id/watched_btn"
+            app:layout_constraintEnd_toEndOf="@id/watched_btn"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

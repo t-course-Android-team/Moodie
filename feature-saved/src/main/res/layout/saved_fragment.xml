@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_fragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background_fragment"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/shimmerViewContainer"
+        android:indeterminate="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/shadow"
+        app:strokeWidth="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,50 +25,6 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="154dp"
         tools:layout_editor_absoluteY="0dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp">
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/muli_bold"
-                android:text="Sorted:"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/type_of_sort_spinner"
-                android:layout_width="322dp"
-                android:layout_height="35dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/black"
-                app:layout_constraintStart_toStartOf="@id/textView"
-                tools:text="Тип сортировки" />
-
-        </LinearLayout>
-
-        <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/shimmerViewContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-                <include layout="@layout/shimmer_item"/>
-                <include layout="@layout/shimmer_item"/>
-                <include layout="@layout/shimmer_item"/>
-                <include layout="@layout/shimmer_item"/>
-                <include layout="@layout/shimmer_item"/>
-            </LinearLayout>
-        </com.facebook.shimmer.ShimmerFrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -70,7 +39,6 @@
                 android:layout_gravity="bottom"
                 android:visibility="gone"/>
 
-            <!-- RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
@@ -78,7 +46,7 @@
                 android:clipToPadding="false"
                 android:paddingBottom="72dp"
                 tools:itemCount="7"
-                tools:listitem="@layout/film"/>
+                tools:listitem="@layout/film1"/>
 
             <ProgressBar
                 android:id="@+id/loadMoreProgress"
@@ -87,28 +55,6 @@
                 android:layout_height="4dp"
                 android:layout_gravity="bottom"
                 android:visibility="gone"/>
-
-            <LinearLayout
-                android:id="@+id/errorContainer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/errorMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
-
-                <Button
-                    android:id="@+id/retryButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="повторить"/>
-            </LinearLayout>
         </FrameLayout>
 
     </LinearLayout>

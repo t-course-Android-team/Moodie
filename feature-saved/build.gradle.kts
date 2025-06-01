@@ -66,7 +66,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.shimmer)
-    implementation("com.google.dagger:hilt-android:2.56.2")
+    implementation(libs.hilt.android.v2562)
     ksp(libs.hilt.android.compiler)
     implementation("androidx.room:room-runtime:2.7.1")
     implementation("androidx.room:room-ktx:2.7.1")

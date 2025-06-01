@@ -21,6 +21,11 @@ interface WatchedMoviesDao {
     suspend fun getCount(): Int
 
     @Query("""
+        SELECT COUNT(*) FROM watched_movies_db WHERE (isSaved = 1)
+    """)
+    suspend fun getSavedCount(): Int
+
+    @Query("""
         SELECT COUNT(*) FROM watched_movies_db WHERE (name = :movieName)
     """)
     suspend fun isMovieWatched(movieName: String): Boolean
@@ -32,6 +37,11 @@ interface WatchedMoviesDao {
     @Query("SELECT * FROM watched_movies_db  ORDER BY id DESC LIMIT :limit OFFSET :offset")
     suspend fun getWatchedMoviesByLimit(
          offset: Int, limit: Int
+    ): List<WatchedMoviesEntity>
+
+    @Query("SELECT * FROM watched_movies_db WHERE (isSaved = 1) ORDER BY id DESC LIMIT :limit OFFSET :offset")
+    suspend fun getSavedMoviesByLimit(
+        offset: Int, limit: Int
     ): List<WatchedMoviesEntity>
 
     @Query("SELECT isSaved FROM watched_movies_db WHERE name = :movieName LIMIT 1")

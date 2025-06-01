@@ -3,10 +3,10 @@ package com.example.feature_saved.presentation.recycler
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.data.WatchedMoviesEntity
-import com.example.feature_saved.databinding.FilmBinding
+import com.example.feature_saved.databinding.Film1Binding
 
 class ViewHolder(
-    private val binding: FilmBinding,
+    private val binding: Film1Binding,
     private val deleteMovie: (String) -> Unit,
     private val watchMovie: (String) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {

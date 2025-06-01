@@ -9,7 +9,10 @@ import com.example.data.WatchedMoviesDataBase
 import com.example.data.WatchedMoviesEntity
 import com.example.data.WatchedMoviesRepoImpl
 import com.example.domain.WatchedMoviesRepo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SavedFragmentViewModel(private val application: Application): ViewModel() {
 
@@ -18,6 +21,11 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
 
     private val _films = MutableLiveData<List<WatchedMoviesEntity>>()
     val films: LiveData<List<WatchedMoviesEntity>> = _films
+
+    private val _count = MutableLiveData<Int>(0)
+    val count: LiveData<Int> = _count
+    val savedCount = MutableStateFlow(0)
+
     private val _screenState = MutableLiveData<State>(State.Content())
     val screenState: LiveData<State> = _screenState
     private var currentOffset = 0
@@ -31,11 +39,11 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
         viewModelScope.launch {
             _screenState.value = State.Loading
             try {
-                val itemsResult = repository.getPagedWatchedMovies(
+                val itemsResult = repository.getPagedSavedMovies(
                     limit = currentLimit,
                     offset = currentOffset
                 )
-                val totalCountResult = repository.getWatchedMoviesCount()
+                val totalCountResult = repository.getSavedMoviesCount()
 
                 if (itemsResult.isNotEmpty() && totalCountResult != 0) {
                     _films.value = itemsResult
@@ -57,13 +65,13 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
     fun loadMoreItems() {
         viewModelScope.launch {
             try {
-                val totalCount = repository.getWatchedMoviesCount()
+                val totalCount = repository.getSavedMoviesCount()
                 if (totalCount < currentOffset + 3 * currentLimit / 2) {
                     currentOffset = totalCount - currentLimit
                 } else {
                     currentOffset += currentLimit / 2
                 }
-                val result = repository.getPagedWatchedMovies(
+                val result = repository.getPagedSavedMovies(
                     limit = currentLimit,
                     offset = currentOffset
                 )
@@ -89,7 +97,7 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
                 } else {
                     currentOffset - currentLimit / 2
                 }
-                val result = repository.getPagedWatchedMovies(
+                val result = repository.getPagedSavedMovies(
                     limit = currentLimit,
                     offset = currentOffset
                 )
@@ -109,7 +117,7 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
 
     private fun updateContentState() {
         viewModelScope.launch {
-            val totalCount = repository.getWatchedMoviesCount()
+            val totalCount = repository.getSavedMoviesCount()
             _screenState.value = State.Content(
                 canLoadMore = currentOffset + currentLimit < totalCount,
                 canLoadPrevious = currentOffset > 0
@@ -117,18 +125,30 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
         }
     }
 
-    fun watchMovie(name: String) {
+    fun watchMovie(name: String, action: () -> Unit) {
         viewModelScope.launch {
-            repository.updateMovieIsSaved(name, true)
+            withContext(Dispatchers.IO) {
+                repository.updateMovieIsSaved(name, false)
+            }
         }
-        loadInitialData()
+        val number = _films.value!!.indexOf(_films.value!!.find { it.name == name })
+        val filmsTemp = _films.value!!.toMutableList()
+        filmsTemp.removeAt(number)
+        _films.value = filmsTemp
+        action()
     }
 
-    fun deleteMovie(name: String) {
+    fun deleteMovie(name: String, action: () -> Unit) {
         viewModelScope.launch {
-            repository.deleteMovie(name)
+            withContext(Dispatchers.IO) {
+                repository.deleteMovie(name)
+            }
         }
-        loadInitialData()
+        val number = _films.value!!.indexOf(_films.value!!.find { it.name == name })
+        val filmsTemp = _films.value!!.toMutableList()
+        filmsTemp.removeAt(number)
+        _films.value = filmsTemp
+        action()
     }
 
     private fun handleError(e: Throwable) {
@@ -136,5 +156,15 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
             message = e.message ?: "Неизвестная ошибка",
             retryAction = { loadInitialData() }
         )
+    }
+
+    fun getSavedCount() {
+        viewModelScope.launch {
+            savedCount.value = repository.getSavedMoviesCount()
+        }
+    }
+
+    fun setCount(number: Int) {
+        _count.value = number
     }
 }
