@@ -28,6 +28,11 @@ android {
             "ADMIN_OPENROUTER_API_KEY_2",
             "\"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\""
         )
+        buildConfigField(
+            "String",
+            "ADMIN_OPENROUTER_API_KEY_V2",
+            "\"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\""
+        )
     }
 
     buildTypes {
