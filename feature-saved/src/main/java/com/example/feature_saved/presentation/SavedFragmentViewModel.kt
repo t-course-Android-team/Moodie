@@ -10,6 +10,7 @@ import com.example.data.WatchedMoviesEntity
 import com.example.data.WatchedMoviesRepoImpl
 import com.example.domain.WatchedMoviesRepo
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,6 +26,8 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
     private val _count = MutableLiveData<Int>(0)
     val count: LiveData<Int> = _count
     val savedCount = MutableStateFlow(0)
+
+    private var currentJob: Job? = null
 
     private val _screenState = MutableLiveData<State>(State.Content())
     val screenState: LiveData<State> = _screenState
@@ -135,6 +138,7 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
         val filmsTemp = _films.value!!.toMutableList()
         filmsTemp.removeAt(number)
         _films.value = filmsTemp
+        savedCount.value-=1
         action()
     }
 
@@ -148,6 +152,7 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
         val filmsTemp = _films.value!!.toMutableList()
         filmsTemp.removeAt(number)
         _films.value = filmsTemp
+        savedCount.value-=1
         action()
     }
 
@@ -159,8 +164,11 @@ class SavedFragmentViewModel(private val application: Application): ViewModel() 
     }
 
     fun getSavedCount() {
-        viewModelScope.launch {
-            savedCount.value = repository.getSavedMoviesCount()
+        currentJob?.cancel()
+        currentJob = viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                savedCount.value = repository.getSavedMoviesCount()
+            }
         }
     }
 

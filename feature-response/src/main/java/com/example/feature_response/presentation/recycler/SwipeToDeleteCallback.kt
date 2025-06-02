@@ -1,5 +1,6 @@
 package com.example.feature_response.presentation.recycler
 
+import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,6 +20,20 @@ abstract class SwipeToDeleteCallback : ItemTouchHelper.Callback() {
         target: RecyclerView.ViewHolder
     ): Boolean {
         return false
+    }
+
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        val rotationAngle = 15f * (dX / recyclerView.width)
+        viewHolder.itemView.rotation = rotationAngle
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 
 }

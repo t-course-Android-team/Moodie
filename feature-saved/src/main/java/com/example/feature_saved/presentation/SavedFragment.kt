@@ -29,8 +29,8 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
     }
 
     override fun onResume() {
+        viewModel.getSavedCount()
         lifecycleScope.launch {
-            viewModel.getSavedCount()
             viewModel.savedCount.collect { number ->
                 if (number != viewModel.films.value?.size) {
                     viewModel.loadInitialData()
@@ -106,7 +106,7 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
             when (state) {
                 is State.Content -> showContentState(state)
                 is State.Error -> showErrorState(state)
-                State.Loading -> showLoadingState()
+                State.Loading -> {}
             }
         }
     }
@@ -128,12 +128,6 @@ class SavedFragment : Fragment(R.layout.saved_fragment) {
         }
     }
 
-    private fun showLoadingState() {
-        with(binding) {
-            shimmerViewContainer.isVisible = true
-            recyclerView.isVisible = false
-        }
-    }
 
     companion object {
         private const val currentLimit = 30
