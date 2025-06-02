@@ -48,11 +48,6 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView: RecyclerView = binding.recyclerView
 
-
-        customAdapter.updateButtonsConditions(
-            sharedViewModel.getButtonsConditions()[0],
-            sharedViewModel.getButtonsConditions()[1]
-        )
         customAdapter.actionSave = clickOnSave
         customAdapter.actionSeen = clickOnSeen
         recyclerView.layoutManager =
@@ -62,13 +57,17 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
         val swipeToDeleteCallback = object : SwipeToDeleteCallback() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
+                if (direction == ItemTouchHelper.LEFT) {
+                    sharedViewModel.saveFilmAsSeen(customAdapter.getFilmByPosition(position))
+                }
+                if (direction == ItemTouchHelper.RIGHT) {
+                    sharedViewModel.saveFilm(customAdapter.getFilmByPosition(position))
+                }
                 customAdapter.removeFilm(position)
                 if (customAdapter.itemCount == 0) {
                     sharedViewModel.refresh()
                     findNavController().popBackStack()
                 }
-                sharedViewModel.saveButtonsConditions(seenIsEnabled = true, savedIsEnabled = true)
-                customAdapter.updateButtonsConditions(isSeenEnabled = true, isSavedEnabled = true)
             }
         }
 
@@ -96,10 +95,6 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        sharedViewModel.saveButtonsConditions(
-            customAdapter.getButtonSeenCondition(),
-            customAdapter.getButtonSaveCondition()
-        )
         sharedViewModel.setDataToSave(customAdapter.getFilms())
     }
 
@@ -159,10 +154,20 @@ class ResponseFragment : Fragment(R.layout.response_fragment) {
 
     private val clickOnSave = { data: List<FilmEntity>, position: Int ->
         sharedViewModel.saveFilm(data[position])
+        customAdapter.removeFilm(0)
+        if (customAdapter.itemCount == 0) {
+            sharedViewModel.refresh()
+            findNavController().popBackStack()
+        }
     }
 
     private val clickOnSeen = { data: List<FilmEntity>, position: Int ->
         sharedViewModel.saveFilmAsSeen(data[position])
+        customAdapter.removeFilm(0)
+        if (customAdapter.itemCount == 0) {
+            sharedViewModel.refresh()
+            findNavController().popBackStack()
+        }
     }
 
     companion object {

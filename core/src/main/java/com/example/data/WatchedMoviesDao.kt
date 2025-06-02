@@ -39,7 +39,7 @@ interface WatchedMoviesDao {
          offset: Int, limit: Int
     ): List<WatchedMoviesEntity>
 
-    @Query("SELECT * FROM watched_movies_db WHERE (isSaved = 1) ORDER BY id DESC LIMIT :limit OFFSET :offset")
+    @Query("SELECT * FROM watched_movies_db WHERE (isSaved = 1) LIMIT :limit OFFSET :offset")
     suspend fun getSavedMoviesByLimit(
         offset: Int, limit: Int
     ): List<WatchedMoviesEntity>
